@@ -11,11 +11,11 @@
 ## About the Game
 
 > Build, connect, and optimize the world's first creative factory.  
-> Automate coding, testing and music production â€” but be careful:  
+> Automate coding, testing and music production — but be careful:  
 > every refactor changes the rhythm of the world.
 
 **Pixel's Refactory** is a 2D factory-simulation game built with **Godot 4.3 (.NET)**.  
-You design pipelines of **software processes** â€” Events, Functions, Tests, and Deployments â€”  
+You design pipelines of **software processes** — Events, Functions, Tests, and Deployments —  
 and feed them into a living world where code and creativity intertwine.
 
 Your tiny companion **Pixel**, a curious digital spider, rewards precision and focus  
@@ -26,12 +26,12 @@ refactor both code and reality.
 ---
 
 ## Features
-- Node-Graph Factory Editor â€“ design event-driven production lines in an EPK-style flowchart  
-- Tick-Based Simulation â€“ deterministic throughput, latency, and quality metrics  
-- Music Integration â€“ code meets rhythm; automation becomes art  
-- AI Research Tree â€“ unlock Kusintel for smarter automation  
-- Pixel Mini-Games â€“ gain focus buffs and productivity boosts  
-- Data-Driven JSON System â€“ create your own nodes, edges and item types
+- Node-Graph Factory Editor — design event-driven production lines in an EPK-style flowchart  
+- Tick-Based Simulation — deterministic throughput, latency, and quality metrics  
+- Music Integration — code meets rhythm; automation becomes art  
+- AI Research Tree — unlock Kusintel for smarter automation  
+- Pixel Mini-Games — gain focus buffs and productivity boosts  
+- Data-Driven JSON System — create your own nodes, edges and item types
 
 ---
 
@@ -43,7 +43,7 @@ refactor both code and reality.
 | Data Format | JSON |
 | Version Control | Git + GitHub |
 | CI / Export | GitHub Actions |
-| License | Code â†’ MIT, Assets â†’ CC BY-NC-SA 4.0 |
+| License | Code → MIT, Assets → CC BY-NC-SA 4.0 |
 
 ---
 
@@ -51,29 +51,29 @@ refactor both code and reality.
 
 ```
 pixels-refactory/
-â”œâ”€â”€ .github/
-â”‚   â”œâ”€â”€ workflows/
-â”‚   â”‚   â”œâ”€â”€ ci.yml
-â”‚   â”‚   â”œâ”€â”€ export.yml
-â”‚   â”‚   â””â”€â”€ web-deploy.yml
-â”‚   â””â”€â”€ copilot-instructions.md
-â”œâ”€â”€ Game/
-â”‚   â”œâ”€â”€ Scenes/                 # GraphScene, Nodes, HUD
-â”‚   â”œâ”€â”€ Scripts/
-â”‚   â”‚   â”œâ”€â”€ Simulation/         # Core simulation logic
-â”‚   â”‚   â”‚   â”œâ”€â”€ Core/
-â”‚   â”‚   â”‚   â”œâ”€â”€ Nodes/
-â”‚   â”‚   â”‚   â””â”€â”€ Systems/
-â”‚   â”‚   â”œâ”€â”€ GraphEditor/        # GraphEdit UI and node creation
-â”‚   â”‚   â””â”€â”€ UI/                 # Play/Pause controls, KPIs
-â”‚   â”œâ”€â”€ Data/
-â”‚   â”‚   â””â”€â”€ sample_graph.json   # Demo graph for first run
-â”‚   â””â”€â”€ Assets/                 # Art, music, icons
-â”œâ”€â”€ LICENSE
-â”œâ”€â”€ project.godot
-â”œâ”€â”€ export_presets.cfg
-â”œâ”€â”€ README.md
-â””â”€â”€ .editorconfig (optional)
+├── .github/
+│   ├── workflows/
+│   │   ├── ci.yml
+│   │   ├── export.yml
+│   │   └── web-deploy.yml
+│   └── copilot-instructions.md
+├── Game/
+│   ├── Scenes/                 # GraphScene, Nodes, HUD
+│   ├── Scripts/
+│   │   ├── Simulation/         # Core simulation logic
+│   │   │   ├── Core/
+│   │   │   ├── Nodes/
+│   │   │   └── Systems/
+│   │   ├── GraphEditor/        # GraphEdit UI and node creation
+│   │   └── UI/                 # Play/Pause controls, KPIs
+│   ├── Data/
+│   │   └── sample_graph.json   # Demo graph for first run
+│   └── Assets/                 # Art, music, icons
+├── LICENSE
+├── project.godot
+├── export_presets.cfg
+├── README.md
+└── .editorconfig (optional)
 ```
 
 ---
@@ -92,7 +92,7 @@ dotnet build --configuration Release
 ```
 
 ### Run in Editor
-Open `project.godot` in Godot â†’ press â–¶ to start the simulation.
+Open `project.godot` in Godot → press ▶ to start the simulation.
 
 ### Optional: Headless smoke test
 ```bash
@@ -137,4 +137,4 @@ Credit required, non-commercial use only for assets.
 
 ---
 
-"Every tick a beat. Every commit a note." â€” Pixel
+"Every tick a beat. Every commit a note." — Pixel
