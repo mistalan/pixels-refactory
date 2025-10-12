@@ -1,14 +1,28 @@
-# Pixel's Refactory
+# 🏭 Pixel's Refactory
 ### _Automate Creativity._
 
-![Godot](https://img.shields.io/badge/Godot-4.5%20.NET-blue?logo=godot-engine&logoColor=white)
-![License](https://img.shields.io/badge/License-MIT-green)
-![Build](https://github.com/<user>/pixels-refactory/actions/workflows/ci.yml/badge.svg)
-![Export](https://github.com/<user>/pixels-refactory/actions/workflows/export.yml/badge.svg)
+[![Godot](https://img.shields.io/badge/Godot-4.5%20.NET-blue?logo=godot-engine&logoColor=white)](https://godotengine.org)
+[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
+[![Build](https://github.com/mistalan/pixels-refactory/actions/workflows/ci.yml/badge.svg)](https://github.com/mistalan/pixels-refactory/actions/workflows/ci.yml)
+[![Export](https://github.com/mistalan/pixels-refactory/actions/workflows/export.yml/badge.svg)](https://github.com/mistalan/pixels-refactory/actions/workflows/export.yml)
 
 ---
 
-## About the Game
+## 📚 Table of Contents
+- [ℹ️ About the Game](#ℹ️-about-the-game)
+- [✨ Features](#✨-features)
+- [🛠️ Tech Stack](#️-tech-stack)
+- [📁 Project Structure](#-project-structure)
+- [🚀 Build & Run](#-build--run)
+- [⚙️ Continuous Integration](#️-continuous-integration)
+- [📦 Creating a Release](#-creating-a-release)
+- [🤝 Contributing](#-contributing)
+- [📄 License](#-license)
+- [🗺️ Roadmap](#️-roadmap)
+
+---
+
+## ℹ️ About the Game
 
 > Build, connect, and optimize the world's first creative factory.  
 > Automate coding, testing and music production — but be careful:  
@@ -25,17 +39,17 @@ refactor both code and reality.
 
 ---
 
-## Features
-- Node-Graph Factory Editor — design event-driven production lines in an EPK-style flowchart  
-- Tick-Based Simulation — deterministic throughput, latency, and quality metrics  
-- Music Integration — code meets rhythm; automation becomes art  
-- AI Research Tree — unlock Kusintel for smarter automation  
-- Pixel Mini-Games — gain focus buffs and productivity boosts  
-- Data-Driven JSON System — create your own nodes, edges and item types
+## ✨ Features
+- 🎨 **Node-Graph Factory Editor** — design event-driven production lines in an EPK-style flowchart  
+- ⏱️ **Tick-Based Simulation** — deterministic throughput, latency, and quality metrics  
+- 🎵 **Music Integration** — code meets rhythm; automation becomes art  
+- 🤖 **AI Research Tree** — unlock Kusintel for smarter automation  
+- 🎮 **Pixel Mini-Games** — gain focus buffs and productivity boosts  
+- 📊 **Data-Driven JSON System** — create your own nodes, edges and item types
 
 ---
 
-## Tech Stack
+## 🛠️ Tech Stack
 | Area | Technology |
 |------|-------------|
 | Engine | [Godot 4.5 .NET](https://godotengine.org) |
@@ -47,7 +61,7 @@ refactor both code and reality.
 
 ---
 
-## Project Structure
+## 📁 Project Structure
 
 ```
 pixels-refactory/
@@ -77,30 +91,30 @@ pixels-refactory/
 
 ---
 
-## Build & Run
+## 🚀 Build & Run
 
-### Prerequisites
-- Godot 4.5 .NET (Mono)
-- .NET 9 SDK
+### 📋 Prerequisites
+- **Godot 4.5 .NET** (Mono) — [Download here](https://godotengine.org/download)
+- **.NET 9 SDK** — [Download here](https://dotnet.microsoft.com/download)
 
-### Build locally
+### 🔨 Build locally
 ```bash
 godot --headless --build-solutions --quit
 dotnet restore
 dotnet build --configuration Release
 ```
 
-### Run in Editor
+### 🎮 Run in Editor
 Open `project.godot` in Godot → press ▶ to start the simulation.
 
-### Optional: Headless smoke test
+### 🧪 Optional: Headless smoke test
 ```bash
 godot --headless --quit
 ```
 
 ---
 
-## Continuous Integration
+## ⚙️ Continuous Integration
 | Workflow | Trigger | Purpose |
 |-----------|----------|----------|
 | ci.yml | Push / PR | Build validation |
@@ -108,7 +122,7 @@ godot --headless --quit
 
 ---
 
-## Creating a Release
+## 📦 Creating a Release
 
 To create a new release and automatically build Windows/Linux exports:
 
@@ -129,7 +143,7 @@ To create a new release and automatically build Windows/Linux exports:
 
 ---
 
-## Contributing
+## 🤝 Contributing
 1. Fork the repo  
 2. Create a feature branch  
 3. Run `dotnet build`  
@@ -139,14 +153,14 @@ All contributions must pass CI and follow `.github/copilot-instructions.md`.
 
 ---
 
-## License
+## 📄 License
 **Code:** MIT  
 **Assets:** CC BY-NC-SA 4.0  
 Credit required, non-commercial use only for assets.
 
 ---
 
-## Roadmap
+## 🗺️ Roadmap
 - [ ] Node editor MVP  
 - [ ] JSON graph import/export  
 - [ ] Tick simulation + KPIs  
@@ -157,4 +171,4 @@ Credit required, non-commercial use only for assets.
 
 ---
 
-"Every tick a beat. Every commit a note." — Pixel
+> _"Every tick a beat. Every commit a note."_ — **Pixel** 🕷️✨
