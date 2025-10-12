@@ -120,6 +120,8 @@ godot --headless --quit
 | ci.yml | Push / PR | Build validation |
 | export.yml | Tag (v*) | Windows & Linux exports |
 
+> **Workflows optimized for C#/.NET projects** using `chickensoft-games/setup-godot`. See [.github/GODOT_ACTIONS_EVALUATION.md](.github/GODOT_ACTIONS_EVALUATION.md) for details.
+
 ---
 
 ## 📦 Creating a Release
