@@ -106,8 +106,8 @@ Solution: Check that export_presets.cfg contains both presets:
 
 All workflows use these GitHub Actions:
 
-- `actions/checkout@v4` - Repository checkout
-- `actions/setup-dotnet@v4` - .NET SDK setup
+- `actions/checkout@v5` - Repository checkout
+- `actions/setup-dotnet@v5` - .NET SDK setup
 - `chickensoft-games/setup-godot@v2` - Godot engine setup
 - `ncipollo/release-action@v1` - Release creation (export.yml)
 
