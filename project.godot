@@ -13,7 +13,7 @@ config_version=5
 config/name="Pixel's Refactory"
 config/description="Automate creativity through node-graph factory simulation"
 run/main_scene="res://Game/Scenes/GraphScene.tscn"
-config/features=PackedStringArray("4.3", "C#", "Forward Plus")
+config/features=PackedStringArray("4.5", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
 [display]

@@ -4,13 +4,13 @@
 
 ## Summary
 
-This repository contains a **2D, node-graph factory simulation** (EPK/BPMN-lite) built with **Godot 4.3 (.NET/C#)**.  
+This repository contains a **2D, node-graph factory simulation** (EPK/BPMN-lite) built with **Godot 4.5 (.NET/C#)**.  
 Players assemble a production pipeline for “software that powers the music industry” (e.g., IDE → Tests → CI → Deploy → Music Ops).  
 Core gameplay is a **tick-based simulation** flowing items over graph edges between typed nodes (Event, Function, Gateway, Buffer, Sink).
 
 ## High-Level Details
 
-- **Project type:** Godot 4.3 **.NET** (C# 11 / .NET 8) 2D game with a custom graph editor (Godot `GraphEdit`/`GraphNode`).
+- **Project type:** Godot 4.5 **.NET** (C# 11 / .NET 8) 2D game with a custom graph editor (Godot `GraphEdit`/`GraphNode`).
 - **Languages:** C# (gameplay & tools), JSON (data/content), GDScript optional for editor glue (minimized).
 - **Target runtimes:** Windows, Linux. **Note:** Web export is not supported in Godot 4.x with C#/.NET due to upstream limitations.
 - **Repo size expectation:** Small (few hundred files); one Godot project with lightweight assets.
@@ -23,11 +23,11 @@ Core gameplay is a **tick-based simulation** flowing items over graph edges betw
 
 ## Build & Validate (do this, in order)
 
-> **Always** use the **.NET build** of Godot 4.3 and **.NET 8** SDK.
+> **Always** use the **.NET build** of Godot 4.5 and **.NET 8** SDK.
 
 ### 0) Bootstrap (local)
 1. Install **.NET 8 SDK**.  
-2. Install **Godot 4.3 .NET** + **Export Templates** (matching version).  
+2. Install **Godot 4.5 .NET** + **Export Templates** (matching version).  
 3. Open the project in Godot; on first C# load, let it generate MSBuild files.
 
 ### 1) Clean build (local CLI)
@@ -109,7 +109,7 @@ GitHub Actions (expected under `.github/workflows/`):
 1) **`ci.yml`** — Build validation on `push`/`PR`
 - Steps:
   - `actions/setup-dotnet@v4` (8.0.x)
-  - `chickensoft-games/setup-godot@v2` with `version: 4.3`, `use-dotnet: true`, `include-templates: true`
+  - `chickensoft-games/setup-godot@v2` with `version: 4.5`, `use-dotnet: true`, `include-templates: true`
   - `godot --headless --build-solutions --quit`
   - `dotnet build -c Release`
 - **Replicate locally**: run the same 3 commands in the same order.
@@ -118,7 +118,7 @@ GitHub Actions (expected under `.github/workflows/`):
 - Trigger: tags `v*`
 - Steps:
   - Checkout
-  - Setup .NET and Godot 4.3 with export templates
+  - Setup .NET and Godot 4.5 with export templates
   - Export Windows and Linux builds
   - Archive exports; attach via `ncipollo/release-action@v1`
 
@@ -128,7 +128,7 @@ GitHub Actions (expected under `.github/workflows/`):
 
 ## Conventions & Dependencies
 
-- **Godot Version lock:** 4.3 (Mono). Upgrading Godot requires aligning **both** editor and export templates; update CI URLs accordingly.  
+- **Godot Version lock:** 4.5 (Mono). Upgrading Godot requires aligning **both** editor and export templates; update CI URLs accordingly.  
 - **.NET:** 8.0.x. Don’t switch language level without updating `global.json` / project files.  
 - **Graph invariants:** Graph must be acyclic; editor must block cycles.  
 - **Item flow:** FIFO per edge queue; throughput/latency are per-node config.  
