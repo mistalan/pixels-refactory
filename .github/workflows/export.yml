@@ -1,0 +1,84 @@
+name: Export - Cross-Platform Builds
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  export:
+    name: Export Game
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Setup Godot 4.3 .NET
+        uses: chickensoft-games/setup-godot@v2
+        with:
+          version: '4.3.0'
+          use-dotnet: true
+          include-templates: true
+
+      - name: Generate C# bindings
+        run: godot --headless --build-solutions --quit
+        timeout-minutes: 5
+
+      - name: Restore and build
+        run: |
+          dotnet restore
+          dotnet build --configuration Release --no-restore
+
+      - name: Export Windows build
+        run: |
+          mkdir -p ./export/windows
+          godot --headless --export-release "Windows Desktop" ./export/windows/PixelsRefactory.exe
+        timeout-minutes: 10
+
+      - name: Export Linux build
+        run: |
+          mkdir -p ./export/linux
+          godot --headless --export-release "Linux" ./export/linux/PixelsRefactory.x86_64
+        timeout-minutes: 10
+
+      - name: Export Web build
+        run: |
+          mkdir -p ./export/web
+          godot --headless --export-release "Web" ./export/web/index.html
+        timeout-minutes: 10
+
+      - name: Package Windows build
+        run: |
+          cd ./export/windows
+          zip -r ../PixelsRefactory-Windows.zip .
+          cd ../..
+
+      - name: Package Linux build
+        run: |
+          cd ./export/linux
+          tar -czf ../PixelsRefactory-Linux.tar.gz .
+          cd ../..
+
+      - name: Package Web build
+        run: |
+          cd ./export/web
+          zip -r ../PixelsRefactory-Web.zip .
+          cd ../..
+
+      - name: Create Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "export/PixelsRefactory-Windows.zip,export/PixelsRefactory-Linux.tar.gz,export/PixelsRefactory-Web.zip"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          generateReleaseNotes: true
+          draft: false
+          prerelease: false

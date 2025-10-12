@@ -1,0 +1,77 @@
+name: Web Deploy - GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  export-web:
+    name: Export Web Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Setup Godot 4.3 .NET
+        uses: chickensoft-games/setup-godot@v2
+        with:
+          version: '4.3.0'
+          use-dotnet: true
+          include-templates: true
+
+      - name: Generate C# bindings
+        run: godot --headless --build-solutions --quit
+        timeout-minutes: 5
+
+      - name: Restore and build
+        run: |
+          dotnet restore
+          dotnet build --configuration Release --no-restore
+
+      - name: Export Web build
+        run: |
+          mkdir -p ./export/web
+          godot --headless --export-release "Web" ./export/web/index.html
+        timeout-minutes: 10
+
+      - name: Add .nojekyll file
+        run: touch ./export/web/.nojekyll
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./export/web
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: export-web
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
