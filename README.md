@@ -124,6 +124,8 @@ To create a new release and automatically build Windows/Linux exports:
    - Create a GitHub release with the artifacts attached
 
 **Tag naming convention:** Use semantic versioning (e.g., `v0.1.0`, `v1.0.0`, `v1.2.3-beta`)
+- Tags **without** a hyphen (e.g., `v1.0.0`) → standard release
+- Tags **with** a hyphen (e.g., `v1.0.0-beta`, `v1.2.3-rc1`) → pre-release
 
 ---
 
