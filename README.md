@@ -1,7 +1,7 @@
 # Pixel's Refactory
 ### _Automate Creativity._
 
-![Godot](https://img.shields.io/badge/Godot-4.3%20.NET-blue?logo=godot-engine&logoColor=white)
+![Godot](https://img.shields.io/badge/Godot-4.5%20.NET-blue?logo=godot-engine&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![Build](https://github.com/<user>/pixels-refactory/actions/workflows/ci.yml/badge.svg)
 ![Export](https://github.com/<user>/pixels-refactory/actions/workflows/export.yml/badge.svg)
@@ -14,7 +14,7 @@
 > Automate coding, testing and music production — but be careful:  
 > every refactor changes the rhythm of the world.
 
-**Pixel's Refactory** is a 2D factory-simulation game built with **Godot 4.3 (.NET)**.  
+**Pixel's Refactory** is a 2D factory-simulation game built with **Godot 4.5 (.NET)**.  
 You design pipelines of **software processes** — Events, Functions, Tests, and Deployments —  
 and feed them into a living world where code and creativity intertwine.
 
@@ -38,7 +38,7 @@ refactor both code and reality.
 ## Tech Stack
 | Area | Technology |
 |------|-------------|
-| Engine | [Godot 4.3 .NET](https://godotengine.org) |
+| Engine | [Godot 4.5 .NET](https://godotengine.org) |
 | Language | C# 11 / .NET 8 |
 | Data Format | JSON |
 | Version Control | Git + GitHub |
@@ -80,7 +80,7 @@ pixels-refactory/
 ## Build & Run
 
 ### Prerequisites
-- Godot 4.3 .NET (Mono)
+- Godot 4.5 .NET (Mono)
 - .NET 8 SDK
 
 ### Build locally

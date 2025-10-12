@@ -18,7 +18,7 @@ Validates that the project builds successfully on every code change.
 **Steps:**
 1. Checkout repository with Git LFS
 2. Setup .NET 8 SDK
-3. Setup Godot 4.3 .NET with export templates
+3. Setup Godot 4.5 .NET with export templates
 4. Generate C# bindings
 5. Restore .NET dependencies
 6. Build project in Release configuration
@@ -42,7 +42,7 @@ Creates production builds for all supported platforms and attaches them to GitHu
 
 **Steps:**
 1. Checkout repository with Git LFS
-2. Setup .NET 8 SDK and Godot 4.3 .NET
+2. Setup .NET 8 SDK and Godot 4.5 .NET
 3. Generate C# bindings and build project
 4. Export builds for:
    - Windows Desktop (.exe)
@@ -85,7 +85,7 @@ No secrets are required. All workflows use `GITHUB_TOKEN` which is automatically
 
 **Issue:** C# bindings generation fails
 ```
-Solution: Ensure Godot version matches exactly 4.3.0
+Solution: Ensure Godot version matches exactly 4.5.0
 ```
 
 **Issue:** .NET restore fails
