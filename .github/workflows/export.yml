@@ -70,6 +70,9 @@ jobs:
         with:
           artifacts: "export/PixelsRefactory-Windows.zip,export/PixelsRefactory-Linux.tar.gz"
           token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ github.ref_name }}
           generateReleaseNotes: true
           draft: false
           prerelease: false
+          allowUpdates: true
+          updateOnlyUnreleased: false
