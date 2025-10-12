@@ -39,7 +39,7 @@ refactor both code and reality.
 | Area | Technology |
 |------|-------------|
 | Engine | [Godot 4.5 .NET](https://godotengine.org) |
-| Language | C# 11 / .NET 8 |
+| Language | C# 13 / .NET 9 |
 | Data Format | JSON |
 | Version Control | Git + GitHub |
 | CI / Export | GitHub Actions |
@@ -81,7 +81,7 @@ pixels-refactory/
 
 ### Prerequisites
 - Godot 4.5 .NET (Mono)
-- .NET 8 SDK
+- .NET 9 SDK
 
 ### Build locally
 ```bash
