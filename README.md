@@ -108,6 +108,25 @@ godot --headless --quit
 
 ---
 
+## Creating a Release
+
+To create a new release and automatically build Windows/Linux exports:
+
+1. **Ensure CI is passing** on your main branch
+2. **Create and push a version tag:**
+   ```bash
+   git tag v0.1.0
+   git push origin v0.1.0
+   ```
+3. The `export.yml` workflow will automatically:
+   - Build the game for Windows and Linux
+   - Package the builds as zip/tar.gz archives
+   - Create a GitHub release with the artifacts attached
+
+**Tag naming convention:** Use semantic versioning (e.g., `v0.1.0`, `v1.0.0`, `v1.2.3-beta`)
+
+---
+
 ## Contributing
 1. Fork the repo  
 2. Create a feature branch  
