@@ -2,6 +2,8 @@
 
 > **Read me first (Agent):** Trust these instructions. Only search the repo if something here is missing or demonstrably wrong.
 
+> **IMPORTANT:** This is a **Godot game project** that does NOT use Azure, AWS, or any cloud services. Do not apply Azure-specific patterns, services, or deployment instructions. This project uses GitHub Actions for CI/CD and targets Windows/Linux native exports only.
+
 ## Summary
 
 This repository contains a **2D, node-graph factory simulation** (EPK/BPMN-lite) built with **Godot 4.3 (.NET/C#)**.  

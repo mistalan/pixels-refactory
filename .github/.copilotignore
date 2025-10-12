@@ -1,0 +1,10 @@
+# Copilot Ignore File
+# This file tells GitHub Copilot and Visual Studio extensions which agent-level
+# instructions should NOT be automatically injected into this repository.
+
+# Disable Azure-specific Copilot instructions
+# This is a Godot game project that does not use Azure services
+azure
+Azure
+AZURE
+microsoft.azure
