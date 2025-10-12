@@ -106,10 +106,12 @@ Solution: Check that export_presets.cfg contains both presets:
 
 All workflows use these GitHub Actions:
 
-- `actions/checkout@v4` - Repository checkout
-- `actions/setup-dotnet@v4` - .NET SDK setup
-- `chickensoft-games/setup-godot@v2` - Godot engine setup
+- `actions/checkout@v5` - Repository checkout
+- `actions/setup-dotnet@v5` - .NET SDK setup
+- `chickensoft-games/setup-godot@v2` - Godot engine setup (optimal for C#/.NET projects)
 - `ncipollo/release-action@v1` - Release creation (export.yml)
+
+> **Note:** See [GODOT_ACTIONS_EVALUATION.md](GODOT_ACTIONS_EVALUATION.md) for a detailed comparison of available Godot GitHub Actions and why we use `chickensoft-games/setup-godot` instead of alternatives like `abarichello/godot-ci`.
 
 ---
 
