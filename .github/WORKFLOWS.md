@@ -1,6 +1,8 @@
 # GitHub Actions Workflows
 
-This repository uses three GitHub Actions workflows to automate building, testing, and deploying the Godot game.
+This repository uses two GitHub Actions workflows to automate building, testing, and exporting the Godot game.
+
+> **Note:** Web deployment is not supported in Godot 4.x when using C#/.NET due to upstream limitations in .NET. Only Windows and Linux exports are available.
 
 ## Workflows Overview
 
@@ -45,16 +47,14 @@ Creates production builds for all supported platforms and attaches them to GitHu
 4. Export builds for:
    - Windows Desktop (.exe)
    - Linux (.x86_64)
-   - Web (HTML5/WASM)
-5. Package each build (ZIP for Windows/Web, TAR.GZ for Linux)
+5. Package each build (ZIP for Windows, TAR.GZ for Linux)
 6. Create GitHub release with all build artifacts
 
-**Duration:** ~15-25 minutes
+**Duration:** ~15-20 minutes
 
 **Output Artifacts:**
 - `PixelsRefactory-Windows.zip`
 - `PixelsRefactory-Linux.tar.gz`
-- `PixelsRefactory-Web.zip`
 
 **Status Badge:**
 ```markdown
@@ -72,47 +72,10 @@ git push origin v1.0.0
 
 ---
 
-### 3. Web Deploy - GitHub Pages (`web-deploy.yml`)
-
-**Triggers:**
-- Push to `main` branch
-- Manual workflow dispatch
-
-**Purpose:**
-Exports the Web build and deploys it to GitHub Pages for live demos.
-
-**Steps:**
-1. Export Web build to `./export/web`
-2. Add `.nojekyll` file for GitHub Pages compatibility
-3. Upload build artifact
-4. Deploy to GitHub Pages environment
-
-**Duration:** ~10-15 minutes
-
-**Live URL:**
-Once deployed, the game will be available at:
-```
-https://mistalan.github.io/pixels-refactory/
-```
-
-**Manual Trigger:**
-Go to Actions → Web Deploy → Run workflow
-
----
-
 ## Setup Requirements
 
 ### Repository Secrets
 No secrets are required. All workflows use `GITHUB_TOKEN` which is automatically provided.
-
-### GitHub Pages Setup
-To enable the Web Deploy workflow:
-
-1. Go to repository Settings → Pages
-2. Under "Source", select "GitHub Actions"
-3. Save the configuration
-
-The next push to `main` will automatically deploy to Pages.
 
 ---
 
@@ -132,20 +95,9 @@ Solution: Verify .NET 8 SDK is properly installed in the workflow
 
 **Issue:** Export fails
 ```
-Solution: Check that export_presets.cfg contains all three presets:
+Solution: Check that export_presets.cfg contains both presets:
 - Windows Desktop
 - Linux
-- Web
-```
-
-### GitHub Pages Not Working
-
-**Issue:** 404 error after deployment
-```
-Solution: 
-1. Check Pages settings (Settings → Pages → Source: GitHub Actions)
-2. Verify workflow completed successfully
-3. Wait 1-2 minutes for DNS propagation
 ```
 
 ---
@@ -158,8 +110,6 @@ All workflows use these GitHub Actions:
 - `actions/setup-dotnet@v4` - .NET SDK setup
 - `chickensoft-games/setup-godot@v2` - Godot engine setup
 - `ncipollo/release-action@v1` - Release creation (export.yml)
-- `actions/upload-pages-artifact@v3` - Pages upload (web-deploy.yml)
-- `actions/deploy-pages@v4` - Pages deployment (web-deploy.yml)
 
 ---
 
@@ -184,10 +134,9 @@ godot --headless --export-release "Windows Desktop" ./export/windows/PixelsRefac
 
 # Linux
 godot --headless --export-release "Linux" ./export/linux/PixelsRefactory.x86_64
-
-# Web
-godot --headless --export-release "Web" ./export/web/index.html
 ```
+
+> **Note:** Web export is not available for C#/.NET projects in Godot 4.x
 
 ---
 

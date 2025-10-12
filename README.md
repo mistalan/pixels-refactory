@@ -54,8 +54,7 @@ pixels-refactory/
 ├── .github/
 │   ├── workflows/
 │   │   ├── ci.yml
-│   │   ├── export.yml
-│   │   └── web-deploy.yml
+│   │   └── export.yml
 │   └── copilot-instructions.md
 ├── Game/
 │   ├── Scenes/                 # GraphScene, Nodes, HUD
@@ -105,8 +104,7 @@ godot --headless --quit
 | Workflow | Trigger | Purpose |
 |-----------|----------|----------|
 | ci.yml | Push / PR | Build validation |
-| export.yml | Tag (v*) | Cross-platform exports |
-| web-deploy.yml | Main branch | Deploys Web build to GitHub Pages |
+| export.yml | Tag (v*) | Windows & Linux exports |
 
 ---
 
@@ -133,7 +131,8 @@ Credit required, non-commercial use only for assets.
 - [ ] Tick simulation + KPIs  
 - [ ] Pixel mini-game prototype  
 - [ ] Kusintel AI tree  
-- [ ] Web demo on GitHub Pages  
+
+> **Note:** Web deployment is not available for Godot 4.x with C#/.NET due to upstream limitations. Native Windows and Linux exports are supported.  
 
 ---
 

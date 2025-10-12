@@ -50,12 +50,6 @@ jobs:
           godot --headless --export-release "Linux" ./export/linux/PixelsRefactory.x86_64
         timeout-minutes: 10
 
-      - name: Export Web build
-        run: |
-          mkdir -p ./export/web
-          godot --headless --export-release "Web" ./export/web/index.html
-        timeout-minutes: 10
-
       - name: Package Windows build
         run: |
           cd ./export/windows
@@ -68,16 +62,10 @@ jobs:
           tar -czf ../PixelsRefactory-Linux.tar.gz .
           cd ../..
 
-      - name: Package Web build
-        run: |
-          cd ./export/web
-          zip -r ../PixelsRefactory-Web.zip .
-          cd ../..
-
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "export/PixelsRefactory-Windows.zip,export/PixelsRefactory-Linux.tar.gz,export/PixelsRefactory-Web.zip"
+          artifacts: "export/PixelsRefactory-Windows.zip,export/PixelsRefactory-Linux.tar.gz"
           token: ${{ secrets.GITHUB_TOKEN }}
           generateReleaseNotes: true
           draft: false

@@ -12,7 +12,7 @@ Core gameplay is a **tick-based simulation** flowing items over graph edges betw
 
 - **Project type:** Godot 4.3 **.NET** (C# 11 / .NET 8) 2D game with a custom graph editor (Godot `GraphEdit`/`GraphNode`).
 - **Languages:** C# (gameplay & tools), JSON (data/content), GDScript optional for editor glue (minimized).
-- **Target runtimes:** Windows, Linux, Web (HTML5/WASM). Native exports are primary; Web is optional.
+- **Target runtimes:** Windows, Linux. **Note:** Web export is not supported in Godot 4.x with C#/.NET due to upstream limitations.
 - **Repo size expectation:** Small (few hundred files); one Godot project with lightweight assets.
 - **Design tenets:**  
   - Deterministic, **discrete ticks** (e.g., 10/s).  
@@ -60,7 +60,8 @@ godot --headless --quit # Should exit 0 if project loads
 
 ### 5) Export / CI validation
 - Exports are driven by **Godot Export Presets** (`export_presets.cfg`).  
-- CI uses GitHub Actions to validate that presets can export (Windows/Linux/Web) and attach artifacts on tags.
+- CI uses GitHub Actions to validate that presets can export (Windows/Linux) and attach artifacts on tags.
+- **Web export is not available** for C#/.NET projects in Godot 4.x.
 
 **Timing notes:**  
 - `godot --headless --build-solutions` typically < 30s on CI; `dotnet build` < 60s for small changes; full export per target 1–3 min.
@@ -97,7 +98,7 @@ README.md
 
 ### Key configs
 - `project.godot`: Godot project configuration.  
-- `export_presets.cfg`: export targets (Windows/Linux/Web). **Required for CI export.**
+- `export_presets.cfg`: export targets (Windows/Linux). **Required for CI export.**
 
 ---
 
@@ -117,11 +118,9 @@ GitHub Actions (expected under `.github/workflows/`):
 - Trigger: tags `v*`
 - Steps:
   - Checkout
-  - `firebelley/godot-export@v7` with **mono** Godot + templates URLs for 4.3
+  - Setup .NET and Godot 4.3 with export templates
+  - Export Windows and Linux builds
   - Archive exports; attach via `ncipollo/release-action@v1`
-
-3) **`web-deploy.yml`** (optional) — Export preset `Web` → GitHub Pages
-- On `main` push, export preset `Web`, then `actions/deploy-pages@v4`.
 
 > **Agent:** When adding a new workflow, mirror these patterns. Always ensure export presets exist before attempting export.
 
@@ -141,11 +140,11 @@ GitHub Actions (expected under `.github/workflows/`):
 ## Root Contents (expected)
 
 - `project.godot` — Godot project file.  
-- `export_presets.cfg` — Export targets.  
+- `export_presets.cfg` — Export targets (Windows/Linux).  
 - `/Game/**` — All scenes, scripts, data.  
 - `README.md` — Quick start + screenshots/gifs (keep updated).  
 - `.editorconfig` (optional) — C# formatting rules.  
-- `.github/workflows/*.yml` — CI, Export, Web deploy.  
+- `.github/workflows/*.yml` — CI and Export workflows.  
 - `.github/copilot-instructions.md` — this file.
 
 **README.md (expected content):**  
