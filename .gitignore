@@ -20,3 +20,4 @@ export/
 
 # Visual Studio files
 .vs/
+.vscode/
