@@ -29,5 +29,4 @@ project/assembly_name="PixelsRefactory"
 
 [rendering]
 
-renderer/rendering_method="forward_plus"
 textures/canvas_textures/default_texture_filter=0
