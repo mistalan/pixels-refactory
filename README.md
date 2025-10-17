@@ -107,6 +107,16 @@ dotnet build --configuration Release
 ### 🎮 Run in Editor
 Open `project.godot` in Godot → press ▶ to start the simulation.
 
+### 🎯 Using the Graph Editor
+1. **Create Nodes**: Click toolbar buttons (`+ Event`, `+ Function`, `+ Gateway`, `+ Buffer`, `+ Sink`)
+2. **Connect Nodes**: Drag from output ports (right) to input ports (left)
+3. **Run Simulation**: Click `▶ Play` button in the control panel
+4. **Adjust Speed**: Click speed button to cycle through 1x → 2x → 5x
+5. **Monitor KPIs**: View metrics in the right panel (items consumed, quality, throughput)
+
+For detailed usage instructions, see [Game/Scenes/README.md](Game/Scenes/README.md).  
+For architecture details, see [EDITOR_GUIDE.md](EDITOR_GUIDE.md).
+
 ### 🧪 Optional: Headless smoke test
 ```bash
 godot --headless --quit
