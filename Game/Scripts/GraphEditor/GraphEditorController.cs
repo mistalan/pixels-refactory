@@ -88,8 +88,7 @@ public partial class GraphEditorController : GraphEdit
             Title = logic.DisplayName,
             PositionOffset = position,
             Draggable = true,
-            Resizable = false,
-            ShowClose = true
+            Resizable = false
         };
 
         // Add a label showing node info
@@ -179,26 +178,23 @@ public partial class GraphEditorController : GraphEdit
     /// <summary>
     /// Handle delete nodes request.
     /// </summary>
-    private void OnDeleteNodesRequest(Array nodes)
+    private void OnDeleteNodesRequest(Godot.Collections.Array<StringName> nodes)
     {
-        foreach (var node in nodes)
+        foreach (var nodeName in nodes)
         {
-            if (node is StringName nodeName)
+            string nodeId = nodeName.ToString();
+            
+            // Remove from simulation
+            _simContext.RemoveNode(nodeId);
+            
+            // Remove visual node
+            if (_visualNodes.TryGetValue(nodeId, out var visualNode))
             {
-                string nodeId = nodeName.ToString();
-                
-                // Remove from simulation
-                _simContext.RemoveNode(nodeId);
-                
-                // Remove visual node
-                if (_visualNodes.TryGetValue(nodeId, out var visualNode))
-                {
-                    visualNode.QueueFree();
-                    _visualNodes.Remove(nodeId);
-                }
-                
-                GD.Print($"Deleted node: {nodeId}");
+                visualNode.QueueFree();
+                _visualNodes.Remove(nodeId);
             }
+            
+            GD.Print($"Deleted node: {nodeId}");
         }
     }
 
