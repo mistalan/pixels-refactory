@@ -21,3 +21,8 @@ export/
 # Visual Studio files
 .vs/
 .vscode/
+Game/Scripts/GraphEditor/GraphEditorController.cs.uid
+Game/Scripts/GraphEditor/GraphSceneController.cs.uid
+Game/Scripts/UI/KPIPanel.cs.uid
+Game/Scripts/UI/SimulationController.cs.uid
+Game/Scripts/Simulation/Core/Edge.cs.uid
