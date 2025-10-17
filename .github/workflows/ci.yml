@@ -1,4 +1,6 @@
 name: CI - Build Validation
+permissions:
+  contents: read
 
 on:
   push:
