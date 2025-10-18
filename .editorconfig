@@ -11,6 +11,7 @@ end_of_line = lf
 
 # C# files
 [*.cs]
+indent_style = tab
 indent_size = 4
 
 # Organize usings
