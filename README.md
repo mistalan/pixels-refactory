@@ -161,6 +161,17 @@ To create a new release and automatically build Windows/Linux exports:
 
 All contributions must pass CI and follow `.github/copilot-instructions.md`.
 
+### Code Formatting
+This project uses `.editorconfig` for consistent code formatting:
+- **C# files**: Use **tabs** for indentation (tab size = 4)
+- **GDScript files**: Use **spaces** for indentation (4 spaces)
+- **JSON/YAML files**: Use **spaces** for indentation (2 spaces)
+
+**Godot Editor** automatically respects `.editorconfig` settings in Godot 4.5+.  
+When you create or edit scripts in the Godot editor, it will apply the correct indentation style.
+
+**Visual Studio Code** and other modern editors also support `.editorconfig` natively.
+
 ---
 
 ## 📄 License
