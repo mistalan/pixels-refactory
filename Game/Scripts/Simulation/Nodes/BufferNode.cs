@@ -1,5 +1,5 @@
-using PixelsRefactory.Simulation.Core;
 using System.Collections.Generic;
+using PixelsRefactory.Simulation.Core;
 
 namespace PixelsRefactory.Simulation.Nodes;
 
@@ -10,12 +10,12 @@ public sealed class BufferNode : INodeLogic
 {
 	public string Id { get; init; } = string.Empty;
 	public string DisplayName { get; init; } = "Buffer";
-	
+
 	/// <summary>
 	/// Maximum capacity of the buffer.
 	/// </summary>
 	public int Capacity { get; init; } = 10;
-	
+
 	/// <summary>
 	/// How many items to release per tick.
 	/// </summary>

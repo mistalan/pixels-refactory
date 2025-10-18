@@ -1,6 +1,6 @@
-using PixelsRefactory.Simulation.Core;
 using System.Collections.Generic;
 using System.Linq;
+using PixelsRefactory.Simulation.Core;
 
 namespace PixelsRefactory.Simulation.Systems;
 
@@ -32,7 +32,9 @@ public static class TopologicalSort
 		foreach (var edge in ctx.Edges.Values)
 		{
 			if (!nodes.Contains(edge.FromNodeId) || !nodes.Contains(edge.ToNodeId))
+			{
 				continue;
+			}
 
 			adjacency[edge.FromNodeId].Add(edge.ToNodeId);
 			inDegree[edge.ToNodeId]++;
@@ -43,7 +45,9 @@ public static class TopologicalSort
 		foreach (var nodeId in nodes)
 		{
 			if (inDegree[nodeId] == 0)
+			{
 				queue.Enqueue(nodeId);
+			}
 		}
 
 		var result = new List<string>();
@@ -58,13 +62,17 @@ public static class TopologicalSort
 			{
 				inDegree[neighbor]--;
 				if (inDegree[neighbor] == 0)
+				{
 					queue.Enqueue(neighbor);
+				}
 			}
 		}
 
 		// If we didn't process all nodes, there's a cycle
 		if (result.Count != nodes.Count)
+		{
 			return null;
+		}
 
 		return result;
 	}

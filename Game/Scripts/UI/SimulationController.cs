@@ -1,6 +1,6 @@
+using System;
 using Godot;
 using PixelsRefactory.GraphEditor;
-using System;
 
 namespace PixelsRefactory.UI;
 
@@ -10,7 +10,7 @@ namespace PixelsRefactory.UI;
 public partial class SimulationController : Control
 {
 	[Export] public GraphEditorController? GraphEditor { get; set; }
-	
+
 	private bool _isPlaying = false;
 	private float _tickTimer = 0.0f;
 	private float _currentTickRate = 10.0f; // ticks per second
@@ -31,11 +31,19 @@ public partial class SimulationController : Control
 
 		// Connect button signals if they exist
 		if (_playButton != null)
+		{
 			_playButton.Pressed += OnPlayPressed;
+		}
+
 		if (_pauseButton != null)
+		{
 			_pauseButton.Pressed += OnPausePressed;
+		}
+
 		if (_speedButton != null)
+		{
 			_speedButton.Pressed += OnSpeedPressed;
+		}
 
 		UpdateUI();
 		GD.Print("SimulationController ready");
@@ -44,7 +52,9 @@ public partial class SimulationController : Control
 	public override void _Process(double delta)
 	{
 		if (!_isPlaying || GraphEditor == null)
+		{
 			return;
+		}
 
 		_tickTimer += (float)delta * _speedMultiplier;
 		float tickInterval = 1.0f / _currentTickRate;
@@ -86,11 +96,17 @@ public partial class SimulationController : Control
 	{
 		// Cycle through speeds: 1x -> 2x -> 5x -> 1x
 		if (_speedMultiplier == 1.0f)
+		{
 			_speedMultiplier = 2.0f;
+		}
 		else if (_speedMultiplier == 2.0f)
+		{
 			_speedMultiplier = 5.0f;
+		}
 		else
+		{
 			_speedMultiplier = 1.0f;
+		}
 
 		GD.Print($"Speed: {_speedMultiplier}x");
 		UpdateUI();

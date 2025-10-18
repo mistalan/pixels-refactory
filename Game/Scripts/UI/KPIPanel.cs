@@ -10,7 +10,7 @@ namespace PixelsRefactory.UI;
 public partial class KPIPanel : Control
 {
 	[Export] public GraphEditorController? GraphEditor { get; set; }
-	
+
 	private Label? _kpiLabel;
 	private float _updateTimer = 0.0f;
 	private const float UpdateInterval = 0.5f; // Update every 0.5 seconds
@@ -24,11 +24,15 @@ public partial class KPIPanel : Control
 	public override void _Process(double delta)
 	{
 		if (GraphEditor == null || _kpiLabel == null)
+		{
 			return;
+		}
 
 		_updateTimer += (float)delta;
 		if (_updateTimer < UpdateInterval)
+		{
 			return;
+		}
 
 		_updateTimer = 0.0f;
 		UpdateKPIs();
@@ -37,11 +41,13 @@ public partial class KPIPanel : Control
 	private void UpdateKPIs()
 	{
 		if (_kpiLabel == null || GraphEditor == null)
+		{
 			return;
+		}
 
 		var ctx = GraphEditor.GetSimContext();
 		var text = "=== KPIs ===\n";
-		
+
 		int totalNodes = ctx.Nodes.Count;
 		int totalEdges = ctx.Edges.Count;
 		int totalItemsInTransit = 0;

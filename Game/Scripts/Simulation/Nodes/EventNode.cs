@@ -10,22 +10,22 @@ public sealed class EventNode : INodeLogic
 {
 	public string Id { get; init; } = string.Empty;
 	public string DisplayName { get; init; } = "Event";
-	
+
 	/// <summary>
 	/// Type of item this event generates.
 	/// </summary>
 	public ItemType ItemType { get; init; } = ItemType.Ticket;
-	
+
 	/// <summary>
 	/// How many items to generate per tick (0 = none, 1+ = that many).
 	/// </summary>
 	public int GenerationRate { get; init; } = 1;
-	
+
 	/// <summary>
 	/// Initial quality of generated items.
 	/// </summary>
 	public float Quality { get; init; } = 1.0f;
-	
+
 	/// <summary>
 	/// Size of generated items.
 	/// </summary>
@@ -46,7 +46,7 @@ public sealed class EventNode : INodeLogic
 	public void Tick(SimContext ctx)
 	{
 		_tickCounter++;
-		
+
 		// Generate items at the specified rate
 		for (int i = 0; i < GenerationRate; i++)
 		{

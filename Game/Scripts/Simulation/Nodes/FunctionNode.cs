@@ -1,5 +1,5 @@
-using PixelsRefactory.Simulation.Core;
 using System;
+using PixelsRefactory.Simulation.Core;
 
 namespace PixelsRefactory.Simulation.Nodes;
 
@@ -11,24 +11,24 @@ public sealed class FunctionNode : INodeLogic
 {
 	public string Id { get; init; } = string.Empty;
 	public string DisplayName { get; init; } = "Function";
-	
+
 	/// <summary>
 	/// Maximum number of items to process per tick.
 	/// </summary>
 	public int Throughput { get; init; } = 1;
-	
+
 	/// <summary>
 	/// Number of ticks items wait inside this node before processing.
 	/// 0 = instant processing.
 	/// </summary>
 	public int Latency { get; init; } = 0;
-	
+
 	/// <summary>
 	/// Optional: transform input items to this type.
 	/// If null, items pass through unchanged.
 	/// </summary>
 	public ItemType? OutputType { get; init; } = null;
-	
+
 	/// <summary>
 	/// Quality multiplier applied to processed items (1.0 = no change).
 	/// </summary>
@@ -51,7 +51,7 @@ public sealed class FunctionNode : INodeLogic
 	{
 		// Pull items from inputs
 		var items = ctx.PullFromInputs(Id, Throughput, port: 0);
-		
+
 		if (items.Count == 0)
 		{
 			_currentLatencyTicks = 0;
@@ -79,11 +79,11 @@ public sealed class FunctionNode : INodeLogic
 			{
 				item.Type = OutputType.Value;
 			}
-			
+
 			// Apply quality modification
 			item.Quality *= QualityMultiplier;
 			item.Quality = Math.Clamp(item.Quality, 0.0f, 2.0f);
-			
+
 			// Push to outputs
 			ctx.PushToOutputs(Id, item, port: 0);
 		}

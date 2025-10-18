@@ -23,12 +23,12 @@ public sealed class Item
 	/// The type of this item.
 	/// </summary>
 	public ItemType Type { get; set; }
-	
+
 	/// <summary>
 	/// Quality metric (0.0 to 1.0+). Can be degraded or improved by nodes.
 	/// </summary>
 	public float Quality { get; set; } = 1.0f;
-	
+
 	/// <summary>
 	/// Optional size/complexity metric.
 	/// </summary>

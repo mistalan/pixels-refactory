@@ -38,15 +38,29 @@ public partial class GraphSceneController : Control
 		var createSinkBtn = GetNodeOrNull<Button>("Toolbar/ToolbarButtons/CreateSinkButton");
 
 		if (createEventBtn != null)
+		{
 			createEventBtn.Pressed += () => OnCreateNodePressed("event");
+		}
+
 		if (createFunctionBtn != null)
+		{
 			createFunctionBtn.Pressed += () => OnCreateNodePressed("function");
+		}
+
 		if (createGatewayBtn != null)
+		{
 			createGatewayBtn.Pressed += () => OnCreateNodePressed("gateway");
+		}
+
 		if (createBufferBtn != null)
+		{
 			createBufferBtn.Pressed += () => OnCreateNodePressed("buffer");
+		}
+
 		if (createSinkBtn != null)
+		{
 			createSinkBtn.Pressed += () => OnCreateNodePressed("sink");
+		}
 
 		GD.Print("GraphSceneController ready");
 		GD.Print("Use toolbar buttons to create nodes, then drag to connect them");
@@ -62,7 +76,7 @@ public partial class GraphSceneController : Control
 
 		// Create node at the next position
 		_graphEditor.CreateNode(nodeType, _nextNodePosition);
-		
+
 		// Update position for next node
 		_nextNodePosition.X += 250;
 		if (_nextNodePosition.X > 1500)

@@ -12,27 +12,27 @@ public sealed class SimContext
 	/// All nodes in the simulation, keyed by ID.
 	/// </summary>
 	public Dictionary<string, INodeLogic> Nodes { get; } = new();
-	
+
 	/// <summary>
 	/// All edges in the simulation, keyed by edge key.
 	/// </summary>
 	public Dictionary<string, Edge> Edges { get; } = new();
-	
+
 	/// <summary>
 	/// Tick rate (ticks per second).
 	/// </summary>
 	public float TickRate { get; set; } = 10.0f;
-	
+
 	/// <summary>
 	/// Current simulation tick counter.
 	/// </summary>
 	public long TickCount { get; set; } = 0;
-	
+
 	/// <summary>
 	/// Whether the simulation is currently running.
 	/// </summary>
 	public bool IsRunning { get; set; } = false;
-	
+
 	/// <summary>
 	/// Simulation speed multiplier (1.0 = normal, 2.0 = double speed).
 	/// </summary>
@@ -117,7 +117,9 @@ public sealed class SimContext
 					items.Add(edge.Queue.Dequeue());
 				}
 				if (items.Count >= maxItems)
+				{
 					break;
+				}
 			}
 		}
 		return items;

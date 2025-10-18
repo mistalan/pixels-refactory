@@ -1,5 +1,5 @@
-using PixelsRefactory.Simulation.Core;
 using System.Collections.Generic;
+using PixelsRefactory.Simulation.Core;
 
 namespace PixelsRefactory.Simulation.Systems;
 
@@ -36,7 +36,9 @@ public sealed class Scheduler
 		if (_executionOrder == null)
 		{
 			if (!RecalculateOrder())
+			{
 				return; // Graph has cycles, cannot execute
+			}
 		}
 
 		// Execute each node in order

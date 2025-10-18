@@ -16,12 +16,12 @@ public sealed class GatewayNode : INodeLogic
 {
 	public string Id { get; init; } = string.Empty;
 	public string DisplayName { get; init; } = "Gateway";
-	
+
 	/// <summary>
 	/// Type of gateway logic.
 	/// </summary>
 	public GatewayType Type { get; init; } = GatewayType.XOR;
-	
+
 	/// <summary>
 	/// For XOR: threshold quality value for routing decision.
 	/// Items with quality >= threshold go to port 0, others to port 1.
@@ -40,9 +40,11 @@ public sealed class GatewayNode : INodeLogic
 	public void Tick(SimContext ctx)
 	{
 		var items = ctx.PullFromInputs(Id, maxItems: 100, port: 0);
-		
+
 		if (items.Count == 0)
+		{
 			return;
+		}
 
 		switch (Type)
 		{
