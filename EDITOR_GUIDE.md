@@ -228,6 +228,36 @@ Future: Add unit tests for:
 - Graph validation rules
 - Scheduler execution order
 
+## Code Formatting in Godot Editor
+
+This project uses `.editorconfig` for consistent code formatting across all editors.
+
+### Godot 4.5+ Built-in Support
+Godot's built-in script editor automatically respects `.editorconfig` settings:
+- **C# files** (`.cs`): Uses **tabs** for indentation
+- **GDScript files** (`.gd`): Uses **spaces** (4 spaces per indent)
+
+When you create or edit scripts in Godot, the editor will automatically apply these settings.
+
+### Manual Verification
+If you need to verify or adjust Godot's text editor settings:
+1. Open **Editor > Editor Settings**
+2. Navigate to **Text Editor > Behavior > Indent**
+3. Check that "Type" is set to **Tabs** (for C# files)
+4. Note: `.editorconfig` should override these global settings per file type
+
+### External Editors
+If using an external editor with Godot:
+1. Visual Studio Code: Automatically supports `.editorconfig`
+2. Visual Studio: Automatically supports `.editorconfig`
+3. Rider: Automatically supports `.editorconfig`
+
+### Formatting Validation
+To verify all C# files follow the formatting rules:
+```bash
+dotnet format --verify-no-changes --exclude analyzers
+```
+
 ## Debug Tips
 
 - Use `GD.Print()` for logging

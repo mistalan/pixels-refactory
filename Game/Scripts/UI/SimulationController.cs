@@ -1,6 +1,6 @@
+using System;
 using Godot;
 using PixelsRefactory.GraphEditor;
-using System;
 
 namespace PixelsRefactory.UI;
 
@@ -9,105 +9,121 @@ namespace PixelsRefactory.UI;
 /// </summary>
 public partial class SimulationController : Control
 {
-    [Export] public GraphEditorController? GraphEditor { get; set; }
-    
-    private bool _isPlaying = false;
-    private float _tickTimer = 0.0f;
-    private float _currentTickRate = 10.0f; // ticks per second
-    private float _speedMultiplier = 1.0f;
+	[Export] public GraphEditorController? GraphEditor { get; set; }
 
-    private Button? _playButton;
-    private Button? _pauseButton;
-    private Button? _speedButton;
-    private Label? _statusLabel;
+	private bool _isPlaying = false;
+	private float _tickTimer = 0.0f;
+	private float _currentTickRate = 10.0f; // ticks per second
+	private float _speedMultiplier = 1.0f;
 
-    public override void _Ready()
-    {
-        // Find child controls (these will be created in the scene)
-        _playButton = GetNodeOrNull<Button>("PlayButton");
-        _pauseButton = GetNodeOrNull<Button>("PauseButton");
-        _speedButton = GetNodeOrNull<Button>("SpeedButton");
-        _statusLabel = GetNodeOrNull<Label>("StatusLabel");
+	private Button? _playButton;
+	private Button? _pauseButton;
+	private Button? _speedButton;
+	private Label? _statusLabel;
 
-        // Connect button signals if they exist
-        if (_playButton != null)
-            _playButton.Pressed += OnPlayPressed;
-        if (_pauseButton != null)
-            _pauseButton.Pressed += OnPausePressed;
-        if (_speedButton != null)
-            _speedButton.Pressed += OnSpeedPressed;
+	public override void _Ready()
+	{
+		// Find child controls (these will be created in the scene)
+		_playButton = GetNodeOrNull<Button>("PlayButton");
+		_pauseButton = GetNodeOrNull<Button>("PauseButton");
+		_speedButton = GetNodeOrNull<Button>("SpeedButton");
+		_statusLabel = GetNodeOrNull<Label>("StatusLabel");
 
-        UpdateUI();
-        GD.Print("SimulationController ready");
-    }
+		// Connect button signals if they exist
+		if (_playButton != null)
+		{
+			_playButton.Pressed += OnPlayPressed;
+		}
 
-    public override void _Process(double delta)
-    {
-        if (!_isPlaying || GraphEditor == null)
-            return;
+		if (_pauseButton != null)
+		{
+			_pauseButton.Pressed += OnPausePressed;
+		}
 
-        _tickTimer += (float)delta * _speedMultiplier;
-        float tickInterval = 1.0f / _currentTickRate;
+		if (_speedButton != null)
+		{
+			_speedButton.Pressed += OnSpeedPressed;
+		}
 
-        while (_tickTimer >= tickInterval)
-        {
-            GraphEditor.SimulateTick();
-            _tickTimer -= tickInterval;
-        }
+		UpdateUI();
+		GD.Print("SimulationController ready");
+	}
 
-        UpdateUI();
-    }
+	public override void _Process(double delta)
+	{
+		if (!_isPlaying || GraphEditor == null)
+		{
+			return;
+		}
 
-    private void OnPlayPressed()
-    {
-        if (GraphEditor == null)
-        {
-            GD.PrintErr("GraphEditor not assigned");
-            return;
-        }
+		_tickTimer += (float)delta * _speedMultiplier;
+		float tickInterval = 1.0f / _currentTickRate;
 
-        if (!_isPlaying)
-        {
-            GraphEditor.InitializeScheduler();
-            _isPlaying = true;
-            GD.Print("Simulation started");
-            UpdateUI();
-        }
-    }
+		while (_tickTimer >= tickInterval)
+		{
+			GraphEditor.SimulateTick();
+			_tickTimer -= tickInterval;
+		}
 
-    private void OnPausePressed()
-    {
-        _isPlaying = false;
-        GD.Print("Simulation paused");
-        UpdateUI();
-    }
+		UpdateUI();
+	}
 
-    private void OnSpeedPressed()
-    {
-        // Cycle through speeds: 1x -> 2x -> 5x -> 1x
-        if (_speedMultiplier == 1.0f)
-            _speedMultiplier = 2.0f;
-        else if (_speedMultiplier == 2.0f)
-            _speedMultiplier = 5.0f;
-        else
-            _speedMultiplier = 1.0f;
+	private void OnPlayPressed()
+	{
+		if (GraphEditor == null)
+		{
+			GD.PrintErr("GraphEditor not assigned");
+			return;
+		}
 
-        GD.Print($"Speed: {_speedMultiplier}x");
-        UpdateUI();
-    }
+		if (!_isPlaying)
+		{
+			GraphEditor.InitializeScheduler();
+			_isPlaying = true;
+			GD.Print("Simulation started");
+			UpdateUI();
+		}
+	}
 
-    private void UpdateUI()
-    {
-        if (_statusLabel != null && GraphEditor != null)
-        {
-            var ctx = GraphEditor.GetSimContext();
-            string status = _isPlaying ? "▶ Running" : "⏸ Paused";
-            _statusLabel.Text = $"{status} | Speed: {_speedMultiplier}x | Tick: {ctx.TickCount}";
-        }
+	private void OnPausePressed()
+	{
+		_isPlaying = false;
+		GD.Print("Simulation paused");
+		UpdateUI();
+	}
 
-        if (_speedButton != null)
-        {
-            _speedButton.Text = $"{_speedMultiplier}x";
-        }
-    }
+	private void OnSpeedPressed()
+	{
+		// Cycle through speeds: 1x -> 2x -> 5x -> 1x
+		if (_speedMultiplier == 1.0f)
+		{
+			_speedMultiplier = 2.0f;
+		}
+		else if (_speedMultiplier == 2.0f)
+		{
+			_speedMultiplier = 5.0f;
+		}
+		else
+		{
+			_speedMultiplier = 1.0f;
+		}
+
+		GD.Print($"Speed: {_speedMultiplier}x");
+		UpdateUI();
+	}
+
+	private void UpdateUI()
+	{
+		if (_statusLabel != null && GraphEditor != null)
+		{
+			var ctx = GraphEditor.GetSimContext();
+			string status = _isPlaying ? "▶ Running" : "⏸ Paused";
+			_statusLabel.Text = $"{status} | Speed: {_speedMultiplier}x | Tick: {ctx.TickCount}";
+		}
+
+		if (_speedButton != null)
+		{
+			_speedButton.Text = $"{_speedMultiplier}x";
+		}
+	}
 }

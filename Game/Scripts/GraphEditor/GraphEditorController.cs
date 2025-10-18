@@ -1,9 +1,9 @@
+using System;
+using System.Collections.Generic;
 using Godot;
 using PixelsRefactory.Simulation.Core;
 using PixelsRefactory.Simulation.Nodes;
 using PixelsRefactory.Simulation.Systems;
-using System;
-using System.Collections.Generic;
 
 namespace PixelsRefactory.GraphEditor;
 
@@ -13,7 +13,7 @@ namespace PixelsRefactory.GraphEditor;
 /// </summary>
 public partial class GraphEditorController : GraphEdit
 {
-	private SimContext _simContext = new();
+	private readonly SimContext _simContext = new();
 	private Scheduler? _scheduler;
 	private readonly Dictionary<string, GraphNode> _visualNodes = new();
 	private int _nodeIdCounter = 0;
@@ -23,12 +23,12 @@ public partial class GraphEditorController : GraphEdit
 		// Configure GraphEdit
 		RightDisconnects = true;
 		ShowZoomLabel = true;
-		
+
 		// Connect signals
 		ConnectionRequest += OnConnectionRequest;
 		DisconnectionRequest += OnDisconnectionRequest;
 		DeleteNodesRequest += OnDeleteNodesRequest;
-		
+
 		GD.Print("GraphEditorController ready");
 	}
 
@@ -67,12 +67,12 @@ public partial class GraphEditorController : GraphEdit
 		{
 			// Add to simulation context
 			_simContext.AddNode(logic);
-			
+
 			// Create visual node
 			var visualNode = CreateVisualNode(logic, position);
 			_visualNodes[nodeId] = visualNode;
 			AddChild(visualNode);
-			
+
 			GD.Print($"Created {nodeType} node: {nodeId}");
 		}
 	}
@@ -128,22 +128,24 @@ public partial class GraphEditorController : GraphEdit
 	{
 		string fromId = fromNode.ToString();
 		string toId = toNode.ToString();
-		
+
 		// Create edge in simulation
 		var edge = new Edge(fromId, toId, (int)fromPort, (int)toPort);
 		_simContext.AddEdge(edge);
-		
+
 		// Create visual connection
 		ConnectNode(fromNode, (int)fromPort, toNode, (int)toPort);
-		
+
 		// Validate graph
 		var validation = GraphValidator.Validate(_simContext);
 		if (!validation.IsValid)
 		{
 			GD.PrintErr("Graph validation failed:");
 			foreach (var error in validation.Errors)
+			{
 				GD.PrintErr($"  - {error}");
-			
+			}
+
 			// Remove the edge if it creates a cycle
 			if (validation.Errors.Exists(e => e.Contains("cycle")))
 			{
@@ -165,13 +167,13 @@ public partial class GraphEditorController : GraphEdit
 	{
 		string fromId = fromNode.ToString();
 		string toId = toNode.ToString();
-		
+
 		// Remove edge from simulation
 		_simContext.RemoveEdge(fromId, (int)fromPort, toId, (int)toPort);
-		
+
 		// Remove visual connection
 		DisconnectNode(fromNode, (int)fromPort, toNode, (int)toPort);
-		
+
 		GD.Print($"Disconnected {fromId}[{fromPort}] -> {toId}[{toPort}]");
 	}
 
@@ -183,17 +185,17 @@ public partial class GraphEditorController : GraphEdit
 		foreach (var nodeName in nodes)
 		{
 			string nodeId = nodeName.ToString();
-			
+
 			// Remove from simulation
 			_simContext.RemoveNode(nodeId);
-			
+
 			// Remove visual node
 			if (_visualNodes.TryGetValue(nodeId, out var visualNode))
 			{
 				visualNode.QueueFree();
 				_visualNodes.Remove(nodeId);
 			}
-			
+
 			GD.Print($"Deleted node: {nodeId}");
 		}
 	}
