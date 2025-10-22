@@ -91,6 +91,8 @@ grow_vertical = 2
 text = "=== KPIs ===
 Nodes: 0
 Edges: 0"
+bbcode_enabled = true
+vertical_alignment = 1
 
 [node name="Toolbar" type="Panel" parent="."]
 layout_mode = 1

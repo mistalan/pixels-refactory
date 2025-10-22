@@ -16,6 +16,7 @@ public partial class GraphEditorController : GraphEdit
 	private readonly SimContext _simContext = new();
 	private Scheduler? _scheduler;
 	private readonly Dictionary<string, GraphNode> _visualNodes = new();
+	private readonly Dictionary<string, EdgeVisualController> _edgeVisuals = new();
 	private int _nodeIdCounter = 0;
 
 	public override void _Ready()
@@ -35,7 +36,8 @@ public partial class GraphEditorController : GraphEdit
 	/// <summary>
 	/// Create a new node in the graph.
 	/// </summary>
-	public void CreateNode(string nodeType, Vector2 position)
+	/// <returns>The name/ID of the created node</returns>
+	public string CreateNode(string nodeType, Vector2 position)
 	{
 		string nodeId = $"node_{_nodeIdCounter++}";
 		INodeLogic? logic = null;
@@ -60,7 +62,7 @@ public partial class GraphEditorController : GraphEdit
 				break;
 			default:
 				GD.PrintErr($"Unknown node type: {nodeType}");
-				return;
+				return string.Empty;
 		}
 
 		if (logic != null)
@@ -74,7 +76,10 @@ public partial class GraphEditorController : GraphEdit
 			AddChild(visualNode);
 
 			GD.Print($"Created {nodeType} node: {nodeId}");
+			return nodeId;
 		}
+
+		return string.Empty;
 	}
 
 	/// <summary>
@@ -89,6 +94,17 @@ public partial class GraphEditorController : GraphEdit
 			PositionOffset = position,
 			Draggable = true,
 			Resizable = false
+		};
+
+		// Set tooltip based on node type
+		node.TooltipText = logic switch
+		{
+			EventNode => "📋 Ticket Generator: Creates new work items (1/tick)\nEntry point for your factory pipeline",
+			FunctionNode => "⚙️ Code Node: Converts Tickets → Code\nProcesses requirements into executable code",
+			SinkNode => "🚀 Deploy: Publishes code to production\nFinal destination - tracks your output metrics",
+			GatewayNode => "🔀 Gateway: Splits or merges item flows\nRoutes items to different paths based on conditions",
+			BufferNode => "📦 Buffer: Stores items temporarily\nHelps balance load between fast and slow nodes",
+			_ => "Node in your factory pipeline"
 		};
 
 		// Add a label showing node info
@@ -157,6 +173,9 @@ public partial class GraphEditorController : GraphEdit
 		else
 		{
 			GD.Print($"Connected {fromId}[{fromPort}] -> {toId}[{toPort}]");
+			
+			// Create edge visual after successful connection
+			CreateEdgeVisual(fromId, toId, (int)fromPort, (int)toPort);
 		}
 	}
 
@@ -167,6 +186,14 @@ public partial class GraphEditorController : GraphEdit
 	{
 		string fromId = fromNode.ToString();
 		string toId = toNode.ToString();
+
+		// Remove edge visual
+		var edgeKey = $"{fromId}:{fromPort}->{toId}:{toPort}";
+		if (_edgeVisuals.TryGetValue(edgeKey, out var visual))
+		{
+			visual.QueueFree();
+			_edgeVisuals.Remove(edgeKey);
+		}
 
 		// Remove edge from simulation
 		_simContext.RemoveEdge(fromId, (int)fromPort, toId, (int)toPort);
@@ -226,5 +253,46 @@ public partial class GraphEditorController : GraphEdit
 	public void SimulateTick()
 	{
 		_scheduler?.Tick();
+	}
+
+	/// <summary>
+	/// Create visual representation of an edge with animated item flow.
+	/// </summary>
+	private void CreateEdgeVisual(string fromNodeName, string toNodeName, int fromPort, int toPort)
+	{
+		var edgeKey = $"{fromNodeName}:{fromPort}->{toNodeName}:{toPort}";
+		
+		if (!_simContext.Edges.ContainsKey(edgeKey))
+		{
+			GD.PrintErr($"Cannot create visual for non-existent edge: {edgeKey}");
+			return;
+		}
+
+		var edge = _simContext.Edges[edgeKey];
+		
+		// Get node positions
+		if (!_visualNodes.TryGetValue(fromNodeName, out var fromGraphNode) ||
+			!_visualNodes.TryGetValue(toNodeName, out var toGraphNode))
+		{
+			GD.PrintErr($"Cannot find visual nodes for edge: {edgeKey}");
+			return;
+		}
+		
+		var startPos = fromGraphNode.Position + fromGraphNode.Size / 2;
+		var endPos = toGraphNode.Position + toGraphNode.Size / 2;
+
+		// Create visual controller
+		var visual = new EdgeVisualController
+		{
+			SimEdge = edge,
+			StartPosition = startPos,
+			EndPosition = endPos,
+			TravelTime = 1.0f
+		};
+
+		AddChild(visual);
+		_edgeVisuals[edgeKey] = visual;
+
+		GD.Print($"Created edge visual: {edgeKey}");
 	}
 }
