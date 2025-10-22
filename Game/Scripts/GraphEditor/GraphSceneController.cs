@@ -1,5 +1,7 @@
 using Godot;
 using PixelsRefactory.UI;
+using PixelsRefactory.Audio;
+using PixelsRefactory.Simulation.Nodes;
 
 namespace PixelsRefactory.GraphEditor;
 
@@ -11,6 +13,7 @@ public partial class GraphSceneController : Control
 	private GraphEditorController? _graphEditor;
 	private SimulationController? _simulationController;
 	private KPIPanel? _kpiPanel;
+	private AudioFeedbackController? _audioController;
 	private Vector2 _nextNodePosition = new Vector2(200, 200);
 
 	public override void _Ready()
@@ -19,6 +22,11 @@ public partial class GraphSceneController : Control
 		_graphEditor = GetNodeOrNull<GraphEditorController>("GraphEditor");
 		_simulationController = GetNodeOrNull<SimulationController>("ControlPanel/SimulationController");
 		_kpiPanel = GetNodeOrNull<KPIPanel>("KPIPanel");
+
+		// Initialize audio
+		_audioController = new AudioFeedbackController();
+		AddChild(_audioController);
+		SinkNode.SetAudioController(_audioController);
 
 		// Wire up references
 		if (_simulationController != null && _graphEditor != null)
@@ -64,6 +72,38 @@ public partial class GraphSceneController : Control
 
 		GD.Print("GraphSceneController ready");
 		GD.Print("Use toolbar buttons to create nodes, then drag to connect them");
+
+		// Load starter factory for first-time player experience
+		LoadStarterFactory();
+	}
+
+	private void LoadStarterFactory()
+	{
+		if (_graphEditor == null)
+		{
+			GD.PrintErr("Cannot load starter factory: GraphEditor is null");
+			return;
+		}
+
+		GD.Print("Loading starter factory for first-time player experience...");
+
+		// Create EventNode (Ticket Generator) at position (100, 150)
+		var eventNodeName = _graphEditor.CreateNode("event", new Vector2(100, 150));
+		
+		// Create FunctionNode (Code Processor) at position (400, 150)
+		var functionNodeName = _graphEditor.CreateNode("function", new Vector2(400, 150));
+		
+		// Create SinkNode (Deploy) at position (700, 150)
+		var sinkNodeName = _graphEditor.CreateNode("sink", new Vector2(700, 150));
+
+		// Connect the nodes using CallDeferred to ensure nodes are fully initialized
+		_graphEditor.CallDeferred("connect_node", eventNodeName, 0, functionNodeName, 0);
+		_graphEditor.CallDeferred("connect_node", functionNodeName, 0, sinkNodeName, 0);
+
+		GD.Print($"Starter factory loaded: {eventNodeName} → {functionNodeName} → {sinkNodeName}");
+
+		// Update next position to avoid overlap with starter nodes
+		_nextNodePosition = new Vector2(1000, 150);
 	}
 
 	private void OnCreateNodePressed(string nodeType)

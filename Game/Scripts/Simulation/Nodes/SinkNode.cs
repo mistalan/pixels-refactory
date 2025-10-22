@@ -29,6 +29,14 @@ public sealed class SinkNode : INodeLogic
 
 	private readonly List<float> _qualityHistory = new();
 
+	// Static audio controller reference (set by GraphSceneController)
+	private static object? _audioController;
+
+	public static void SetAudioController(object controller)
+	{
+		_audioController = controller;
+	}
+
 	public SinkNode() { }
 
 	public SinkNode(string id)
@@ -54,6 +62,13 @@ public sealed class SinkNode : INodeLogic
 		{
 			TotalConsumed++;
 			_qualityHistory.Add(item.Quality);
+
+			// Play audio feedback using reflection to avoid circular dependency
+			if (_audioController != null)
+			{
+				var method = _audioController.GetType().GetMethod("PlayItemComplete");
+				method?.Invoke(_audioController, null);
+			}
 		}
 
 		// Recalculate average quality

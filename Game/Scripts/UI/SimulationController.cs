@@ -10,6 +10,7 @@ namespace PixelsRefactory.UI;
 public partial class SimulationController : Control
 {
 	[Export] public GraphEditorController? GraphEditor { get; set; }
+	[Export] public bool AutoStart { get; set; } = true;
 
 	private bool _isPlaying = false;
 	private float _tickTimer = 0.0f;
@@ -47,6 +48,15 @@ public partial class SimulationController : Control
 
 		UpdateUI();
 		GD.Print("SimulationController ready");
+
+		// Auto-start simulation for first-time player experience
+		if (AutoStart && GraphEditor != null)
+		{
+			GraphEditor.InitializeScheduler();
+			_isPlaying = true;
+			GD.Print("Simulation auto-started for seamless first experience");
+			UpdateUI();
+		}
 	}
 
 	public override void _Process(double delta)
