@@ -41,6 +41,12 @@ public sealed class Scheduler
 			}
 		}
 
+		// _executionOrder should be non-null after successful RecalculateOrder
+		if (_executionOrder == null)
+		{
+			return; // Should not happen, but satisfy null check
+		}
+
 		// Execute each node in order
 		foreach (var nodeId in _executionOrder)
 		{
